@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "tfc:ice_sheet_oceanic",
+    "tfc:ice_sheet_oceanic_mountains",
+    "tfc:ice_sheet_oceanic_mountains_edge",
+    "tfc:ice_sheet_shore",
+    "tfc:ocean",
+    "tfc:deep_ocean",
+    "tfc:deep_ocean_trench",
+    "tfc:ocean_reef",
+    "tfc:shore",
+    "tfc:rocky_shores",
+    "tfc:sea_stacks"
+  ]
+}

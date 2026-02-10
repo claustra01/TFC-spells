@@ -1,0 +1,25 @@
+{
+  "replace": false,
+  "values": [
+    "tfc:mountains",
+    "tfc:old_mountains",
+    "tfc:glacially_carved_mountains",
+    "tfc:glaciated_mountains",
+    "tfc:oceanic_mountains",
+    "tfc:glacially_carved_oceanic_mountains",
+    "tfc:glaciated_oceanic_mountains",
+    "tfc:volcanic_mountains",
+    "tfc:volcanic_oceanic_mountains",
+    "tfc:ice_sheet_mountains",
+    "tfc:ice_sheet_mountains_edge",
+    "tfc:ice_sheet_tuyas",
+    "tfc:ice_sheet_tuyas_edge",
+    "tfc:tuyas",
+    "tfc:rocky_plateau",
+    "tfc:mountain_lake",
+    "tfc:oceanic_mountain_lake",
+    "tfc:volcanic_mountain_lake",
+    "tfc:volcanic_oceanic_mountain_lake",
+    "tfc:old_mountain_lake"
+  ]
+}

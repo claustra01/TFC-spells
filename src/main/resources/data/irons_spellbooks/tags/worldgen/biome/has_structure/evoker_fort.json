@@ -1,0 +1,22 @@
+{
+  "replace": false,
+  "values": [
+    "tfc:plains",
+    "tfc:rolling_hills",
+    "tfc:hills",
+    "tfc:highlands",
+    "tfc:lowlands",
+    "tfc:plateau",
+    "tfc:plateau_wide",
+    "tfc:plateau_lake",
+    "tfc:terrace_lower",
+    "tfc:terrace_upper",
+    "tfc:drumlins",
+    "tfc:knob_and_kettle",
+    "tfc:stone_circles",
+    "tfc:rocky_plateau",
+    "tfc:badlands",
+    "tfc:buttes",
+    "tfc:mesas"
+  ]
+}

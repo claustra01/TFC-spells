@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "tfc:salt_marsh",
+    "tfc:mud_flats",
+    "tfc:tidal_flats",
+    "tfc:embayments",
+    "tfc:coastal_dunes",
+    "tfc:shore",
+    "tfc:river",
+    "tfc:lake"
+  ]
+}
