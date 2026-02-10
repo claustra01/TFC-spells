@@ -48,6 +48,8 @@ public final class TfcBlockReplacementProcessor extends StructureProcessor {
     private static final String DEFAULT_WOOD = "oak";
 
     private static final ResourceLocation TFC_FIREPIT = ResourceLocation.fromNamespaceAndPath(NS_TFC, "firepit");
+    private static final ResourceLocation TFC_THATCH_BED = ResourceLocation.fromNamespaceAndPath(NS_TFC, "thatch_bed");
+    private static final ResourceLocation TFC_THATCH = ResourceLocation.fromNamespaceAndPath(NS_TFC, "thatch");
 
     private static final Set<String> VANILLA_WOOD_TYPES =
             Set.of(
@@ -198,6 +200,12 @@ public final class TfcBlockReplacementProcessor extends StructureProcessor {
             outNbt = null;
         }
 
+        // Vanilla lanterns are always on. TFC metal lamps have an explicit `lit` property, so we force it on when
+        // replacing lanterns to avoid producing dark structures.
+        if (("lantern".equals(path) || "soul_lantern".equals(path)) && out.hasProperty(BlockStateProperties.LIT)) {
+            out = out.setValue(BlockStateProperties.LIT, true);
+        }
+
         return new StructureTemplate.StructureBlockInfo(processedBlockInfo.pos(), out, outNbt);
     }
 
@@ -266,12 +274,13 @@ public final class TfcBlockReplacementProcessor extends StructureProcessor {
             return firepit;
         }
 
-        if ("blast_furnace".equals(vanillaPath)) {
-            return ResourceLocation.fromNamespaceAndPath(NS_TFC, "blast_furnace");
-        }
-
         if (scope == ReplacementScope.UTILITY_ONLY) {
             return mapUtilityOnly(vanillaPath, woodHint);
+        }
+
+        @Nullable ResourceLocation sandstone = mapSandstone(vanillaPath);
+        if (sandstone != null) {
+            return sandstone;
         }
 
         // Stone families (rock-dependent).
@@ -373,8 +382,6 @@ public final class TfcBlockReplacementProcessor extends StructureProcessor {
                 return tfcWood("wood/chest/", woodHint);
             case "trapped_chest":
                 return tfcWood("wood/trapped_chest/", woodHint);
-            case "barrel":
-                return tfcWood("wood/barrel/", woodHint);
             case "bookshelf":
                 return tfcWood("wood/bookshelf/", woodHint);
             case "lectern":
@@ -406,6 +413,7 @@ public final class TfcBlockReplacementProcessor extends StructureProcessor {
     private static @Nullable ResourceLocation mapLights(String vanillaPath) {
         switch (vanillaPath) {
             case "torch":
+            case "soul_torch":
                 return ResourceLocation.fromNamespaceAndPath(NS_TFC, "torch");
             case "wall_torch":
             case "soul_wall_torch":
@@ -416,6 +424,60 @@ public final class TfcBlockReplacementProcessor extends StructureProcessor {
             default:
                 return null;
         }
+    }
+
+    private static @Nullable ResourceLocation mapSandstone(String vanillaPath) {
+        // Vanilla uses two sandstones: yellow sandstone and red sandstone. TFC provides colored sandstone blocks with
+        // equivalent shapes; we map to the matching color group.
+        String suffix = "";
+        String base = vanillaPath;
+
+        if (base.endsWith("_slab")) {
+            suffix = "_slab";
+            base = base.substring(0, base.length() - "_slab".length());
+        } else if (base.endsWith("_stairs")) {
+            suffix = "_stairs";
+            base = base.substring(0, base.length() - "_stairs".length());
+        } else if (base.endsWith("_wall")) {
+            suffix = "_wall";
+            base = base.substring(0, base.length() - "_wall".length());
+        }
+
+        @Nullable String kind = null;
+        @Nullable String color = null;
+        switch (base) {
+            case "sandstone" -> {
+                kind = "raw_sandstone";
+                color = "yellow";
+            }
+            case "smooth_sandstone" -> {
+                kind = "smooth_sandstone";
+                color = "yellow";
+            }
+            case "cut_sandstone" -> {
+                kind = "cut_sandstone";
+                color = "yellow";
+            }
+            case "red_sandstone" -> {
+                kind = "raw_sandstone";
+                color = "red";
+            }
+            case "smooth_red_sandstone" -> {
+                kind = "smooth_sandstone";
+                color = "red";
+            }
+            case "cut_red_sandstone" -> {
+                kind = "cut_sandstone";
+                color = "red";
+            }
+            default -> {}
+        }
+        if (kind == null || color == null) {
+            return null;
+        }
+
+        ResourceLocation candidate = ResourceLocation.fromNamespaceAndPath(NS_TFC, kind + "/" + color + suffix);
+        return BuiltInRegistries.BLOCK.containsKey(candidate) ? candidate : null;
     }
 
     private static @Nullable ResourceLocation mapStone(String vanillaPath, String rock) {
@@ -584,8 +646,6 @@ public final class TfcBlockReplacementProcessor extends StructureProcessor {
                 return tfcWood("wood/chest/", woodHint);
             case "trapped_chest":
                 return tfcWood("wood/trapped_chest/", woodHint);
-            case "barrel":
-                return tfcWood("wood/barrel/", woodHint);
             case "bookshelf":
                 return tfcWood("wood/bookshelf/", woodHint);
             case "lectern":
@@ -711,8 +771,6 @@ public final class TfcBlockReplacementProcessor extends StructureProcessor {
                 return ResourceLocation.fromNamespaceAndPath(NS_TFC, "metal/block/wrought_iron");
             case "iron_trapdoor":
                 return ResourceLocation.fromNamespaceAndPath(NS_TFC, "metal/trapdoor/wrought_iron");
-            case "iron_door":
-                return ResourceLocation.fromNamespaceAndPath(NS_TFC, "fireproof_door");
             case "bell":
                 return ResourceLocation.fromNamespaceAndPath(NS_TFC, "bronze_bell");
             case "gold_block":
@@ -777,6 +835,23 @@ public final class TfcBlockReplacementProcessor extends StructureProcessor {
             return ResourceLocation.fromNamespaceAndPath(NS_MINECRAFT, "water");
         }
 
+        // Simple plants with direct TFC equivalents.
+        switch (vanillaPath) {
+            case "dead_bush" -> {
+                ResourceLocation candidate = ResourceLocation.fromNamespaceAndPath(NS_TFC, "plant/dead_bush");
+                if (BuiltInRegistries.BLOCK.containsKey(candidate)) {
+                    return candidate;
+                }
+            }
+            case "azalea" -> {
+                ResourceLocation candidate = ResourceLocation.fromNamespaceAndPath(NS_TFC, "plant/azalea");
+                if (BuiltInRegistries.BLOCK.containsKey(candidate)) {
+                    return candidate;
+                }
+            }
+            default -> {}
+        }
+
         // Seagrass.
         if ("seagrass".equals(vanillaPath) || "tall_seagrass".equals(vanillaPath)) {
             return ResourceLocation.fromNamespaceAndPath(NS_TFC, "plant/eel_grass");
@@ -789,6 +864,39 @@ public final class TfcBlockReplacementProcessor extends StructureProcessor {
         // Flower pots.
         if (vanillaPath.startsWith("potted_")) {
             String plant = vanillaPath.substring("potted_".length());
+
+            // Potted saplings: vanilla uses "potted_<wood>_sapling", TFC uses "wood/potted_sapling/<wood>".
+            if (plant.endsWith("_sapling")) {
+                String wood = plant.substring(0, plant.length() - "_sapling".length());
+                if (isVanillaWood(wood)) {
+                    ResourceLocation candidate =
+                            ResourceLocation.fromNamespaceAndPath(NS_TFC, "wood/potted_sapling/" + normalizeWood(wood));
+                    if (BuiltInRegistries.BLOCK.containsKey(candidate)) {
+                        return candidate;
+                    }
+                }
+            }
+
+            // Vanilla naming differs from TFC for some potted plants.
+            if ("azalea_bush".equals(plant)) {
+                ResourceLocation candidate = ResourceLocation.fromNamespaceAndPath(NS_TFC, "plant/potted/azalea");
+                if (BuiltInRegistries.BLOCK.containsKey(candidate)) {
+                    return candidate;
+                }
+            }
+            if ("azure_bluet".equals(plant)) {
+                ResourceLocation candidate = ResourceLocation.fromNamespaceAndPath(NS_TFC, "plant/potted/houstonia");
+                if (BuiltInRegistries.BLOCK.containsKey(candidate)) {
+                    return candidate;
+                }
+            }
+            if ("red_tulip".equals(plant)) {
+                ResourceLocation candidate = ResourceLocation.fromNamespaceAndPath(NS_TFC, "plant/potted/tulip_red");
+                if (BuiltInRegistries.BLOCK.containsKey(candidate)) {
+                    return candidate;
+                }
+            }
+
             ResourceLocation candidate = ResourceLocation.fromNamespaceAndPath(NS_TFC, "plant/potted/" + plant);
             if (BuiltInRegistries.BLOCK.containsKey(candidate)) {
                 return candidate;
@@ -817,9 +925,26 @@ public final class TfcBlockReplacementProcessor extends StructureProcessor {
             }
         }
 
-        // Glass (TFC has poured glass, but no panes or colored variants).
+        // Beds.
+        if (vanillaPath.endsWith("_bed")) {
+            return TFC_THATCH_BED;
+        }
+
+        // Hay.
+        if ("hay_block".equals(vanillaPath)) {
+            return TFC_THATCH;
+        }
+
+        // Glass. TFC provides poured glass blocks, including colored variants, but does not provide panes.
         if ("glass".equals(vanillaPath)) {
             return ResourceLocation.fromNamespaceAndPath(NS_TFC, "poured_glass");
+        }
+        if (vanillaPath.endsWith("_stained_glass")) {
+            String color = vanillaPath.substring(0, vanillaPath.length() - "_stained_glass".length());
+            ResourceLocation candidate = ResourceLocation.fromNamespaceAndPath(NS_TFC, color + "_poured_glass");
+            if (BuiltInRegistries.BLOCK.containsKey(candidate)) {
+                return candidate;
+            }
         }
 
         return null;
