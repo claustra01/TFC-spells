@@ -13,6 +13,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
@@ -54,6 +55,17 @@ public final class TfcBlockReplacementProcessor extends StructureProcessor {
     private static final ResourceLocation TFC_FIREPIT = ResourceLocation.fromNamespaceAndPath(NS_TFC, "firepit");
     private static final ResourceLocation TFC_THATCH_BED = ResourceLocation.fromNamespaceAndPath(NS_TFC, "thatch_bed");
     private static final ResourceLocation TFC_THATCH = ResourceLocation.fromNamespaceAndPath(NS_TFC, "thatch");
+    private static final Map<String, String> ARMOR_STAND_ITEM_REPLACEMENTS =
+            Map.ofEntries(
+                    Map.entry("minecraft:iron_sword", "tfc:metal/sword/wrought_iron"),
+                    Map.entry("minecraft:iron_axe", "tfc:metal/axe/wrought_iron"),
+                    Map.entry("minecraft:iron_pickaxe", "tfc:metal/pickaxe/wrought_iron"),
+                    Map.entry("minecraft:iron_shovel", "tfc:metal/shovel/wrought_iron"),
+                    Map.entry("minecraft:iron_hoe", "tfc:metal/hoe/wrought_iron"),
+                    Map.entry("minecraft:iron_helmet", "tfc:metal/helmet/wrought_iron"),
+                    Map.entry("minecraft:iron_chestplate", "tfc:metal/chestplate/wrought_iron"),
+                    Map.entry("minecraft:iron_leggings", "tfc:metal/greaves/wrought_iron"),
+                    Map.entry("minecraft:iron_boots", "tfc:metal/boots/wrought_iron"));
 
     private static final Set<String> VANILLA_WOOD_TYPES =
             Set.of(
@@ -200,6 +212,67 @@ public final class TfcBlockReplacementProcessor extends StructureProcessor {
         }
 
         return new StructureTemplate.StructureBlockInfo(processedBlockInfo.pos(), out, outNbt);
+    }
+
+    @Override
+    public StructureTemplate.StructureEntityInfo processEntity(
+            LevelReader world,
+            BlockPos seedPos,
+            StructureTemplate.StructureEntityInfo rawEntityInfo,
+            StructureTemplate.StructureEntityInfo entityInfo,
+            StructurePlaceSettings placementSettings,
+            StructureTemplate template) {
+        CompoundTag inNbt = entityInfo.nbt;
+        if (inNbt == null || !isArmorStand(inNbt)) {
+            return entityInfo;
+        }
+
+        CompoundTag outNbt = inNbt.copy();
+        boolean changed = remapArmorStandEquipmentList(outNbt, "ArmorItems");
+        changed |= remapArmorStandEquipmentList(outNbt, "HandItems");
+        if (!changed) {
+            return entityInfo;
+        }
+
+        return new StructureTemplate.StructureEntityInfo(entityInfo.pos, entityInfo.blockPos, outNbt);
+    }
+
+    private static boolean isArmorStand(CompoundTag nbt) {
+        if (!nbt.contains("id", 8)) {
+            return false;
+        }
+        String id = nbt.getString("id");
+        return "minecraft:armor_stand".equals(id) || "armor_stand".equals(id);
+    }
+
+    private static boolean remapArmorStandEquipmentList(CompoundTag entityNbt, String key) {
+        if (!entityNbt.contains(key, 9)) {
+            return false;
+        }
+
+        ListTag items = entityNbt.getList(key, 10);
+        boolean changed = false;
+        for (int i = 0; i < items.size(); i++) {
+            CompoundTag stack = items.getCompound(i);
+            if (!stack.contains("id", 8)) {
+                continue;
+            }
+
+            String rawId = stack.getString("id");
+            if (rawId.isEmpty()) {
+                continue;
+            }
+
+            String normalizedId = rawId.contains(":") ? rawId : NS_MINECRAFT + ":" + rawId;
+            String replacementId = ARMOR_STAND_ITEM_REPLACEMENTS.get(normalizedId);
+            if (replacementId == null) {
+                continue;
+            }
+
+            stack.putString("id", replacementId);
+            changed = true;
+        }
+        return changed;
     }
 
     private static BlockState applyFirepitAxisFromFacing(BlockState from, BlockState firepit) {
