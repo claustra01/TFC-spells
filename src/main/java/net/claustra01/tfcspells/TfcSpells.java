@@ -13,6 +13,6 @@ public final class TfcSpells {
     public static final Logger LOGGER = LogUtils.getLogger();
 
     public TfcSpells(IEventBus modEventBus) {
-        ModStructureProcessors.STRUCTURE_PROCESSORS.register(modEventBus);
+        ModStructureProcessors.register(modEventBus);
     }
 }

@@ -1,5 +1,6 @@
 package net.claustra01.tfcspells.access;
 
+import javax.annotation.Nullable;
 import net.minecraft.resources.ResourceLocation;
 
 /**
@@ -9,8 +10,8 @@ import net.minecraft.resources.ResourceLocation;
  * {@code StructureTemplateMixin}.</p>
  */
 public interface StructureTemplateIdAccess {
+    @Nullable
     ResourceLocation tfcspells$getTemplateId();
 
     void tfcspells$setTemplateId(ResourceLocation id);
 }
-

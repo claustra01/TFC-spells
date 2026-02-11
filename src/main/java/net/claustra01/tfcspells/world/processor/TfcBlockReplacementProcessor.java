@@ -83,7 +83,7 @@ public final class TfcBlockReplacementProcessor extends StructureProcessor {
 
     @Override
     protected StructureProcessorType<?> getType() {
-        return ModStructureProcessors.BLOCK_REPLACEMENT.get();
+        return ModStructureProcessors.TFC_BLOCK_REPLACEMENT.get();
     }
 
     @Override

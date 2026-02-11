@@ -2,6 +2,7 @@ package net.claustra01.tfcspells.mixin;
 
 import java.util.List;
 import java.util.Set;
+import javax.annotation.Nullable;
 import net.claustra01.tfcspells.access.StructureTemplateIdAccess;
 import net.claustra01.tfcspells.access.StructureTemplatePalettesAccess;
 import net.claustra01.tfcspells.world.processor.TfcBlockReplacementProcessor;
@@ -26,9 +27,10 @@ public abstract class StructureTemplateMixin implements StructureTemplateIdAcces
 
     @Shadow @Final private List<StructureTemplate.Palette> palettes;
 
-    @Unique private ResourceLocation tfcspells$templateId;
+    @Unique @Nullable private ResourceLocation tfcspells$templateId;
 
     @Override
+    @Nullable
     public ResourceLocation tfcspells$getTemplateId() {
         return tfcspells$templateId;
     }
