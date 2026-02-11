@@ -59,9 +59,6 @@
     "tfc:coastal_dunes",
     "tfc:setback_cliffs",
     "tfc:rocky_shores",
-    "tfc:shore",
-    "tfc:lake",
-    "tfc:mountain_lake",
-    "tfc:old_mountain_lake"
+    "tfc:shore"
   ]
 }

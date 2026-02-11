@@ -2,9 +2,13 @@ package net.claustra01.tfcspells.world.processor;
 
 import com.mojang.serialization.MapCodec;
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import javax.annotation.Nullable;
 import net.claustra01.tfcspells.ModStructureProcessors;
+import net.claustra01.tfcspells.access.StructureTemplatePalettesAccess;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -171,13 +175,8 @@ public final class TfcBlockReplacementProcessor extends StructureProcessor {
         }
         String woodHint = woodCache.get(cacheKey);
         if (woodHint == null) {
-            @Nullable String detected = detectVanillaWoodType(path);
-            if (detected != null) {
-                woodHint = detected;
-                woodCache.put(cacheKey, woodHint);
-            } else {
-                woodHint = DEFAULT_WOOD;
-            }
+            woodHint = resolveWoodHint(path, offset, settings, template);
+            woodCache.put(cacheKey, woodHint);
         }
 
         @Nullable ResourceLocation outId =
@@ -202,7 +201,7 @@ public final class TfcBlockReplacementProcessor extends StructureProcessor {
 
         // Vanilla lanterns are always on. TFC metal lamps have an explicit `lit` property, so we force it on when
         // replacing lanterns to avoid producing dark structures.
-        if (("lantern".equals(path) || "soul_lantern".equals(path)) && out.hasProperty(BlockStateProperties.LIT)) {
+        if ("lantern".equals(path) && out.hasProperty(BlockStateProperties.LIT)) {
             out = out.setValue(BlockStateProperties.LIT, true);
         }
 
@@ -269,6 +268,7 @@ public final class TfcBlockReplacementProcessor extends StructureProcessor {
         }
 
         // Always replace vanilla fire/cooking blocks, even in UTILITY_ONLY scope.
+        // We only target decorative equivalents here and intentionally drop vanilla furnace-like NBT.
         @Nullable ResourceLocation firepit = mapFirepit(vanillaPath);
         if (firepit != null) {
             return firepit;
@@ -335,7 +335,7 @@ public final class TfcBlockReplacementProcessor extends StructureProcessor {
 
     private static @Nullable ResourceLocation mapFirepit(String vanillaPath) {
         return switch (vanillaPath) {
-            case "furnace", "campfire", "soul_campfire" -> TFC_FIREPIT;
+            case "furnace", "campfire" -> TFC_FIREPIT;
             default -> null;
         };
     }
@@ -382,6 +382,8 @@ public final class TfcBlockReplacementProcessor extends StructureProcessor {
                 return tfcWood("wood/chest/", woodHint);
             case "trapped_chest":
                 return tfcWood("wood/trapped_chest/", woodHint);
+            // Notably absent: barrels. TFC barrels are processing block entities (not vanilla barrels) and Iron's
+            // structures use barrel loot tables; a naive swap would likely lose loot or change behavior.
             case "bookshelf":
                 return tfcWood("wood/bookshelf/", woodHint);
             case "lectern":
@@ -398,28 +400,18 @@ public final class TfcBlockReplacementProcessor extends StructureProcessor {
     }
 
     private static @Nullable ResourceLocation mapCauldron(String vanillaPath) {
-        // TFC doesn't have a direct cauldron equivalent; large vessels are the closest decorative container.
-        switch (vanillaPath) {
-            case "cauldron":
-            case "water_cauldron":
-            case "lava_cauldron":
-            case "powder_snow_cauldron":
-                return ResourceLocation.fromNamespaceAndPath(NS_TFC, "ceramic/large_vessel");
-            default:
-                return null;
-        }
+        // TFC doesn't have a direct cauldron equivalent. We only replace the empty cauldron, because filled cauldrons
+        // encode their contents in the block type (water/lava/powder snow) and a naive swap would lose that detail.
+        return "cauldron".equals(vanillaPath) ? ResourceLocation.fromNamespaceAndPath(NS_TFC, "ceramic/large_vessel") : null;
     }
 
     private static @Nullable ResourceLocation mapLights(String vanillaPath) {
         switch (vanillaPath) {
             case "torch":
-            case "soul_torch":
                 return ResourceLocation.fromNamespaceAndPath(NS_TFC, "torch");
             case "wall_torch":
-            case "soul_wall_torch":
                 return ResourceLocation.fromNamespaceAndPath(NS_TFC, "wall_torch");
             case "lantern":
-            case "soul_lantern":
                 return ResourceLocation.fromNamespaceAndPath(NS_TFC, "metal/lamp/wrought_iron");
             default:
                 return null;
@@ -556,6 +548,16 @@ public final class TfcBlockReplacementProcessor extends StructureProcessor {
             return ResourceLocation.fromNamespaceAndPath(NS_TFC, "rock/raw/tuff");
         }
 
+        // Ores (rock-dependent).
+        switch (p) {
+            case "emerald_ore":
+                return ResourceLocation.fromNamespaceAndPath(NS_TFC, "ore/emerald/" + rock);
+            case "gold_ore":
+                return ResourceLocation.fromNamespaceAndPath(NS_TFC, "ore/normal_native_gold/" + rock);
+            default:
+                break;
+        }
+
         // Andesite / diorite / granite families (structures use these frequently for variation).
         switch (p) {
             case "andesite":
@@ -646,6 +648,8 @@ public final class TfcBlockReplacementProcessor extends StructureProcessor {
                 return tfcWood("wood/chest/", woodHint);
             case "trapped_chest":
                 return tfcWood("wood/trapped_chest/", woodHint);
+            // Notably absent: barrels. TFC barrels are processing block entities (not vanilla barrels) and Iron's
+            // structures use barrel loot tables; a naive swap would likely lose loot or change behavior.
             case "bookshelf":
                 return tfcWood("wood/bookshelf/", woodHint);
             case "lectern":
@@ -935,6 +939,22 @@ public final class TfcBlockReplacementProcessor extends StructureProcessor {
             return TFC_THATCH;
         }
 
+        // Coal blocks.
+        if ("coal_block".equals(vanillaPath)) {
+            ResourceLocation candidate = ResourceLocation.fromNamespaceAndPath(NS_TFC, "bituminous_coal");
+            if (BuiltInRegistries.BLOCK.containsKey(candidate)) {
+                return candidate;
+            }
+        }
+
+        // Terracotta -> hardened clay.
+        if ("terracotta".equals(vanillaPath)) {
+            ResourceLocation candidate = ResourceLocation.fromNamespaceAndPath(NS_TFC, "hardened_clay");
+            if (BuiltInRegistries.BLOCK.containsKey(candidate)) {
+                return candidate;
+            }
+        }
+
         // Glass. TFC provides poured glass blocks, including colored variants, but does not provide panes.
         if ("glass".equals(vanillaPath)) {
             return ResourceLocation.fromNamespaceAndPath(NS_TFC, "poured_glass");
@@ -1012,6 +1032,63 @@ public final class TfcBlockReplacementProcessor extends StructureProcessor {
             }
         }
         return null;
+    }
+
+    private static String resolveWoodHint(
+            String currentPath,
+            BlockPos offset,
+            StructurePlaceSettings settings,
+            @Nullable StructureTemplate template) {
+        // Fast path: if the current block encodes a wood type, we can use it immediately.
+        @Nullable String detected = detectVanillaWoodType(currentPath);
+        if (detected != null) {
+            return detected;
+        }
+
+        // Otherwise, derive a stable hint from the template palette (independent of placement order).
+        if (template instanceof StructureTemplatePalettesAccess palettesAccess) {
+            try {
+                List<StructureTemplate.Palette> palettes = palettesAccess.tfcspells$getPalettes();
+                StructureTemplate.Palette palette = settings.getRandomPalette(palettes, offset);
+                @Nullable String dominant = dominantVanillaWoodType(palette.blocks());
+                if (dominant != null) {
+                    return dominant;
+                }
+            } catch (Exception ignored) {
+                // Defensive: fall back to default.
+            }
+        }
+
+        return DEFAULT_WOOD;
+    }
+
+    private static @Nullable String dominantVanillaWoodType(List<StructureTemplate.StructureBlockInfo> blocks) {
+        Map<String, Integer> counts = new HashMap<>();
+        for (StructureTemplate.StructureBlockInfo info : blocks) {
+            BlockState state = info.state();
+            ResourceLocation id = BuiltInRegistries.BLOCK.getKey(state.getBlock());
+            if (!NS_MINECRAFT.equals(id.getNamespace())) {
+                continue;
+            }
+
+            @Nullable String wood = detectVanillaWoodType(id.getPath());
+            if (wood == null) {
+                continue;
+            }
+
+            counts.put(wood, counts.getOrDefault(wood, 0) + 1);
+        }
+
+        @Nullable String best = null;
+        int bestCount = 0;
+        for (Map.Entry<String, Integer> entry : counts.entrySet()) {
+            int count = entry.getValue();
+            if (count > bestCount) {
+                bestCount = count;
+                best = entry.getKey();
+            }
+        }
+        return best;
     }
 
     private static ResourceLocation tfcRock(String prefix, String rock) {
