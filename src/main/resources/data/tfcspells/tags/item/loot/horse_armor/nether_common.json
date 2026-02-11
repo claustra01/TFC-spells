@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "tfc:metal/horse_armor/wrought_iron",
+    "tfc:metal/horse_armor/steel"
+  ]
+}
