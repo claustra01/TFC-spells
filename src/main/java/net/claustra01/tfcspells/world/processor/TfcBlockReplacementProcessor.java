@@ -467,6 +467,21 @@ public final class TfcBlockReplacementProcessor extends StructureProcessor {
     private static @Nullable ResourceLocation mapStone(String vanillaPath, String rock) {
         String p = vanillaPath;
 
+        // Amethyst geode blocks.
+        switch (p) {
+            case "amethyst_block":
+            case "budding_amethyst":
+            case "amethyst_cluster":
+            case "large_amethyst_bud":
+            case "medium_amethyst_bud":
+            case "small_amethyst_bud":
+                return tfcAmethystOre(rock);
+            case "calcite":
+                return ResourceLocation.fromNamespaceAndPath(NS_TFC, "calcite");
+            default:
+                break;
+        }
+
         // Stone bricks
         switch (p) {
             case "stone_bricks":
@@ -1086,6 +1101,14 @@ public final class TfcBlockReplacementProcessor extends StructureProcessor {
 
     private static ResourceLocation tfcRock(String prefix, String rock, String suffix) {
         return ResourceLocation.fromNamespaceAndPath(NS_TFC, prefix + rock + suffix);
+    }
+
+    private static ResourceLocation tfcAmethystOre(String rock) {
+        ResourceLocation candidate = ResourceLocation.fromNamespaceAndPath(NS_TFC, "ore/amethyst/" + rock);
+        if (BuiltInRegistries.BLOCK.containsKey(candidate)) {
+            return candidate;
+        }
+        return ResourceLocation.fromNamespaceAndPath(NS_TFC, "ore/amethyst/" + DEFAULT_ROCK_OVERWORLD);
     }
 
     private static ResourceLocation tfcWoodPlanks(String wood) {
