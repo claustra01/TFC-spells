@@ -329,7 +329,7 @@ public final class TfcBlockReplacementProcessor extends StructureProcessor {
 
     private static @Nullable ResourceLocation mapFirepit(String vanillaPath) {
         return switch (vanillaPath) {
-            case "furnace", "campfire" -> TFC_FIREPIT;
+            case "furnace", "campfire", "soul_campfire" -> TFC_FIREPIT;
             default -> null;
         };
     }
@@ -394,9 +394,12 @@ public final class TfcBlockReplacementProcessor extends StructureProcessor {
     }
 
     private static @Nullable ResourceLocation mapCauldron(String vanillaPath) {
-        // TFC doesn't have a direct cauldron equivalent. We only replace the empty cauldron, because filled cauldrons
-        // encode their contents in the block type (water/lava/powder snow) and a naive swap would lose that detail.
-        return "cauldron".equals(vanillaPath) ? ResourceLocation.fromNamespaceAndPath(NS_TFC, "ceramic/large_vessel") : null;
+        // TFC doesn't have a direct cauldron equivalent; large vessels are the closest decorative container.
+        return switch (vanillaPath) {
+            case "cauldron", "water_cauldron", "lava_cauldron", "powder_snow_cauldron" ->
+                    ResourceLocation.fromNamespaceAndPath(NS_TFC, "ceramic/large_vessel");
+            default -> null;
+        };
     }
 
     private static @Nullable ResourceLocation mapLights(String vanillaPath) {
