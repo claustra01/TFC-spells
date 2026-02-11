@@ -41,8 +41,7 @@
       "rolls": 1,
       "entries": [
         {
-          "type": "minecraft:item",
-          "name": "minecraft:sweet_berries",
+          "type": "minecraft:loot_table",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -51,7 +50,8 @@
                 "max": 16
               }
             }
-          ]
+          ],
+          "value": "tfcspells:shared/produce"
         }
       ]
     },

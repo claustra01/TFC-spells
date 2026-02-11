@@ -68,8 +68,8 @@
       "rolls": 12,
       "entries": [
         {
-          "type": "minecraft:item",
-          "name": "minecraft:emerald"
+          "type": "minecraft:loot_table",
+          "value": "tfcspells:shared/gems"
         },
         {
           "type": "minecraft:item",

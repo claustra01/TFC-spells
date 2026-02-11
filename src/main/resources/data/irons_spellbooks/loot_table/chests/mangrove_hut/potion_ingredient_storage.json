@@ -21,9 +21,9 @@
           ]
         },
         {
-          "type": "minecraft:item",
+          "type": "minecraft:loot_table",
           "weight": 1,
-          "name": "minecraft:emerald"
+          "value": "tfcspells:shared/gems"
         }
       ]
     },

@@ -33,8 +33,8 @@
           ]
         },
         {
-          "type": "minecraft:item",
-          "name": "minecraft:pumpkin"
+          "type": "minecraft:loot_table",
+          "value": "tfcspells:shared/produce"
         },
         {
           "type": "minecraft:item",
@@ -49,8 +49,8 @@
           "name": "minecraft:fermented_spider_eye"
         },
         {
-          "type": "minecraft:item",
-          "name": "minecraft:wheat"
+          "type": "minecraft:loot_table",
+          "value": "tfcspells:shared/produce"
         },
         {
           "type": "minecraft:item",

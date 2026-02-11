@@ -28,8 +28,7 @@
               "component": "minecraft:bundle_contents",
               "entries": [
                 {
-                  "type": "minecraft:item",
-                  "name": "minecraft:emerald",
+                  "type": "minecraft:loot_table",
                   "functions": [
                     {
                       "function": "minecraft:set_count",
@@ -38,7 +37,8 @@
                         "max": 56
                       }
                     }
-                  ]
+                  ],
+                  "value": "tfcspells:shared/gems"
                 }
               ]
             }

@@ -19,9 +19,8 @@
           ]
         },
         {
-          "type": "minecraft:item",
+          "type": "minecraft:loot_table",
           "weight": 5,
-          "name": "minecraft:raw_iron",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -30,7 +29,8 @@
                 "max": 4
               }
             }
-          ]
+          ],
+          "value": "tfcspells:shared/metals_overworld"
         },
         {
           "type": "minecraft:item",
@@ -38,9 +38,9 @@
           "name": "minecraft:experience_bottle"
         },
         {
-          "type": "minecraft:item",
+          "type": "minecraft:loot_table",
           "weight": 2,
-          "name": "minecraft:diamond"
+          "value": "tfcspells:shared/gems"
         },
         {
           "type": "minecraft:item",
@@ -57,9 +57,9 @@
           ]
         },
         {
-          "type": "minecraft:item",
+          "type": "minecraft:loot_table",
           "weight": 8,
-          "name": "minecraft:emerald"
+          "value": "tfcspells:shared/gems"
         }
       ]
     },

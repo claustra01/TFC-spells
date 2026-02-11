@@ -7,8 +7,8 @@
       },
       "entries": [
         {
-          "type": "minecraft:item",
-          "name": "minecraft:iron_axe"
+          "type": "minecraft:loot_table",
+          "value": "tfcspells:shared/equipment_overworld"
         },
         {
           "type": "minecraft:item",

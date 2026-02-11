@@ -19,29 +19,29 @@
           ]
         },
         {
-          "type": "minecraft:item",
+          "type": "minecraft:loot_table",
           "weight": 5,
-          "name": "minecraft:nether_wart"
+          "value": "tfcspells:shared/produce"
         },
         {
-          "type": "minecraft:item",
+          "type": "minecraft:loot_table",
           "weight": 5,
-          "name": "minecraft:brown_mushroom"
+          "value": "tfcspells:shared/produce"
         },
         {
-          "type": "minecraft:item",
+          "type": "minecraft:loot_table",
           "weight": 2,
-          "name": "minecraft:copper_ingot"
+          "value": "tfcspells:shared/metals_overworld"
         },
         {
-          "type": "minecraft:item",
+          "type": "minecraft:loot_table",
           "weight": 3,
-          "name": "minecraft:red_mushroom"
+          "value": "tfcspells:shared/produce"
         },
         {
-          "type": "minecraft:item",
+          "type": "minecraft:loot_table",
           "weight": 8,
-          "name": "minecraft:fern"
+          "value": "tfcspells:shared/produce"
         }
       ]
     },

@@ -165,9 +165,8 @@
           "weight": 8
         },
         {
-          "type": "minecraft:item",
+          "type": "minecraft:loot_table",
           "weight": 4,
-          "name": "minecraft:iron_ingot",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -176,12 +175,12 @@
                 "max": 2
               }
             }
-          ]
+          ],
+          "value": "tfcspells:shared/metals_overworld"
         },
         {
-          "type": "minecraft:item",
+          "type": "minecraft:loot_table",
           "weight": 6,
-          "name": "minecraft:emerald",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -190,12 +189,13 @@
                 "max": 3
               }
             }
-          ]
+          ],
+          "value": "tfcspells:shared/gems"
         },
         {
-          "type": "minecraft:item",
+          "type": "minecraft:loot_table",
           "weight": 2,
-          "name": "minecraft:diamond"
+          "value": "tfcspells:shared/gems"
         }
       ]
     }

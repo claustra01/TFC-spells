@@ -5,9 +5,8 @@
       "rolls": 1,
       "entries": [
         {
-          "type": "minecraft:item",
+          "type": "minecraft:loot_table",
           "weight": 1,
-          "name": "minecraft:emerald",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -16,12 +15,13 @@
                 "max": 3
               }
             }
-          ]
+          ],
+          "value": "tfcspells:shared/gems"
         },
         {
-          "type": "minecraft:item",
+          "type": "minecraft:loot_table",
           "weight": 1,
-          "name": "minecraft:diamond"
+          "value": "tfcspells:shared/gems"
         },
         {
           "type": "minecraft:item",

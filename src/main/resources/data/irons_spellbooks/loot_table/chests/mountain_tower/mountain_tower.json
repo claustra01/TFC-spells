@@ -33,14 +33,14 @@
           ]
         },
         {
-          "type": "minecraft:item",
+          "type": "minecraft:loot_table",
           "weight": 5,
-          "name": "minecraft:rabbit_stew"
+          "value": "tfcspells:shared/produce"
         },
         {
-          "type": "minecraft:item",
+          "type": "minecraft:loot_table",
           "weight": 6,
-          "name": "minecraft:amethyst_shard"
+          "value": "tfcspells:shared/gems"
         },
         {
           "type": "minecraft:item",

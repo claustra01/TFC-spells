@@ -4,8 +4,7 @@
       "rolls": 3,
       "entries": [
         {
-          "type": "minecraft:item",
-          "name": "minecraft:porkchop",
+          "type": "minecraft:loot_table",
           "weight": 5,
           "functions": [
             {
@@ -15,7 +14,8 @@
                 "max": 12
               }
             }
-          ]
+          ],
+          "value": "tfcspells:shared/produce"
         },
         {
           "type": "minecraft:item",
@@ -93,8 +93,7 @@
       "rolls": 2,
       "entries": [
         {
-          "type": "minecraft:item",
-          "name": "minecraft:gold_nugget",
+          "type": "minecraft:loot_table",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -103,11 +102,11 @@
                 "max": 12
               }
             }
-          ]
+          ],
+          "value": "tfcspells:shared/metals_nether"
         },
         {
-          "type": "minecraft:item",
-          "name": "minecraft:iron_nugget",
+          "type": "minecraft:loot_table",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -116,7 +115,8 @@
                 "max": 12
               }
             }
-          ]
+          ],
+          "value": "tfcspells:shared/metals_nether"
         }
       ]
     },
@@ -127,12 +127,12 @@
       },
       "entries": [
         {
-          "type": "minecraft:item",
-          "name": "minecraft:golden_shovel"
+          "type": "minecraft:loot_table",
+          "value": "tfcspells:shared/equipment_nether"
         },
         {
-          "type": "minecraft:item",
-          "name": "minecraft:golden_pickaxe"
+          "type": "minecraft:loot_table",
+          "value": "tfcspells:shared/equipment_nether"
         }
       ]
     }

@@ -34,8 +34,7 @@
       "rolls": 1,
       "entries": [
         {
-          "type": "minecraft:item",
-          "name": "minecraft:emerald",
+          "type": "minecraft:loot_table",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -44,7 +43,8 @@
                 "max": 17
               }
             }
-          ]
+          ],
+          "value": "tfcspells:shared/gems"
         }
       ]
     }

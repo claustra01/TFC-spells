@@ -54,8 +54,7 @@
           "name": "minecraft:cobweb"
         },
         {
-          "type": "minecraft:item",
-          "name": "minecraft:gold_ingot",
+          "type": "minecraft:loot_table",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -64,15 +63,15 @@
                 "max": 5
               }
             }
-          ]
+          ],
+          "value": "tfcspells:shared/metals_overworld"
         },
         {
-          "type": "minecraft:item",
-          "name": "minecraft:diamond"
+          "type": "minecraft:loot_table",
+          "value": "tfcspells:shared/gems"
         },
         {
-          "type": "minecraft:item",
-          "name": "minecraft:emerald",
+          "type": "minecraft:loot_table",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -81,7 +80,8 @@
                 "max": 3
               }
             }
-          ]
+          ],
+          "value": "tfcspells:shared/gems"
         }
       ]
     },

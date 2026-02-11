@@ -9,7 +9,7 @@
         },
         {
           "weight": 4,
-          "type": "minecraft:item",
+          "type": "minecraft:loot_table",
           "functions": [
             {
               "count": {
@@ -19,7 +19,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "minecraft:emerald"
+          "value": "tfcspells:shared/gems"
         },
         {
           "weight": 3,
@@ -70,13 +70,13 @@
         },
         {
           "weight": 1,
-          "type": "minecraft:item",
-          "name": "minecraft:gold_ingot"
+          "type": "minecraft:loot_table",
+          "value": "tfcspells:shared/metals_overworld"
         },
         {
           "weight": 1,
-          "type": "minecraft:item",
-          "name": "minecraft:copper_ingot"
+          "type": "minecraft:loot_table",
+          "value": "tfcspells:shared/metals_overworld"
         }
       ]
     }

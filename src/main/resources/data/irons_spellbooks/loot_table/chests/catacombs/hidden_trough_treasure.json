@@ -42,9 +42,8 @@
       "rolls": 12,
       "entries": [
         {
-          "type": "minecraft:item",
+          "type": "minecraft:loot_table",
           "weight": 5,
-          "name": "minecraft:wheat",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -53,12 +52,13 @@
                 "max": 4
               }
             }
-          ]
+          ],
+          "value": "tfcspells:shared/produce"
         },
         {
-          "type": "minecraft:item",
+          "type": "minecraft:loot_table",
           "weight": 1,
-          "name": "minecraft:hay_block"
+          "value": "tfcspells:shared/produce"
         }
       ]
     },
@@ -66,9 +66,8 @@
       "rolls": 3,
       "entries": [
         {
-          "type": "minecraft:item",
+          "type": "minecraft:loot_table",
           "weight": 5,
-          "name": "minecraft:emerald",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -77,12 +76,13 @@
                 "max": 4
               }
             }
-          ]
+          ],
+          "value": "tfcspells:shared/gems"
         },
         {
-          "type": "minecraft:item",
+          "type": "minecraft:loot_table",
           "weight": 1,
-          "name": "minecraft:diamond"
+          "value": "tfcspells:shared/gems"
         }
       ]
     }

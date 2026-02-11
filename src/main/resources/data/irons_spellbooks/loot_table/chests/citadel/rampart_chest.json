@@ -135,8 +135,7 @@
       "rolls": 1,
       "entries": [
         {
-          "type": "minecraft:item",
-          "name": "minecraft:emerald",
+          "type": "minecraft:loot_table",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -146,11 +145,11 @@
                 "max": 8
               }
             }
-          ]
+          ],
+          "value": "tfcspells:shared/gems"
         },
         {
-          "type": "minecraft:item",
-          "name": "minecraft:diamond",
+          "type": "minecraft:loot_table",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -160,7 +159,8 @@
                 "max": 2
               }
             }
-          ]
+          ],
+          "value": "tfcspells:shared/gems"
         },
         {
           "type": "minecraft:item",
@@ -175,8 +175,7 @@
       "rolls": 1,
       "entries": [
         {
-          "type": "minecraft:item",
-          "name": "minecraft:emerald",
+          "type": "minecraft:loot_table",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -186,11 +185,11 @@
                 "max": 8
               }
             }
-          ]
+          ],
+          "value": "tfcspells:shared/gems"
         },
         {
-          "type": "minecraft:item",
-          "name": "minecraft:diamond",
+          "type": "minecraft:loot_table",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -200,7 +199,8 @@
                 "max": 2
               }
             }
-          ]
+          ],
+          "value": "tfcspells:shared/gems"
         },
         {
           "type": "minecraft:empty",

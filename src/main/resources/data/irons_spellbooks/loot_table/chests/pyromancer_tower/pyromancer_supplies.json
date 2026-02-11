@@ -29,9 +29,9 @@
           "name": "minecraft:paper"
         },
         {
-          "type": "minecraft:item",
+          "type": "minecraft:loot_table",
           "weight": 2,
-          "name": "minecraft:pumpkin"
+          "value": "tfcspells:shared/produce"
         },
         {
           "type": "minecraft:item",

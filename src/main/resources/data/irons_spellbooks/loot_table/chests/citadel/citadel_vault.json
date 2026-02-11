@@ -152,9 +152,8 @@
       "rolls": 4,
       "entries": [
         {
-          "type": "minecraft:item",
+          "type": "minecraft:loot_table",
           "weight": 6,
-          "name": "minecraft:diamond",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -163,7 +162,8 @@
                 "max": 2
               }
             }
-          ]
+          ],
+          "value": "tfcspells:shared/gems"
         },
         {
           "type": "minecraft:item",
@@ -213,9 +213,8 @@
           "name": "minecraft:netherite_ingot"
         },
         {
-          "type": "minecraft:item",
+          "type": "minecraft:loot_table",
           "weight": 8,
-          "name": "minecraft:emerald",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -224,12 +223,12 @@
                 "max": 4
               }
             }
-          ]
+          ],
+          "value": "tfcspells:shared/gems"
         },
         {
-          "type": "minecraft:item",
+          "type": "minecraft:loot_table",
           "weight": 10,
-          "name": "minecraft:gold_ingot",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -238,7 +237,8 @@
                 "max": 8
               }
             }
-          ]
+          ],
+          "value": "tfcspells:shared/metals_nether"
         }
       ]
     }

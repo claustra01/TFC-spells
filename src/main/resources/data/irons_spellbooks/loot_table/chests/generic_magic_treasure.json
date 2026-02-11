@@ -106,19 +106,18 @@
       "rolls": 6,
       "entries": [
         {
-          "type": "minecraft:item",
+          "type": "minecraft:loot_table",
           "weight": 1,
-          "name": "minecraft:diamond"
+          "value": "tfcspells:shared/gems"
         },
         {
-          "type": "minecraft:item",
+          "type": "minecraft:loot_table",
           "weight": 8,
-          "name": "minecraft:copper_ingot"
+          "value": "tfcspells:shared/metals_overworld"
         },
         {
-          "type": "minecraft:item",
+          "type": "minecraft:loot_table",
           "weight": 5,
-          "name": "minecraft:gold_ingot",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -127,12 +126,12 @@
                 "max": 3
               }
             }
-          ]
+          ],
+          "value": "tfcspells:shared/metals_overworld"
         },
         {
-          "type": "minecraft:item",
+          "type": "minecraft:loot_table",
           "weight": 3,
-          "name": "minecraft:emerald",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -141,12 +140,12 @@
                 "max": 3
               }
             }
-          ]
+          ],
+          "value": "tfcspells:shared/gems"
         },
         {
-          "type": "minecraft:item",
+          "type": "minecraft:loot_table",
           "weight": 12,
-          "name": "minecraft:iron_ingot",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -155,7 +154,8 @@
                 "max": 4
               }
             }
-          ]
+          ],
+          "value": "tfcspells:shared/metals_overworld"
         }
       ]
     },
@@ -163,49 +163,49 @@
       "rolls": 1,
       "entries": [
         {
-          "type": "minecraft:item",
-          "name": "minecraft:diamond_sword"
+          "type": "minecraft:loot_table",
+          "value": "tfcspells:shared/equipment_overworld"
         },
         {
-          "type": "minecraft:item",
-          "name": "minecraft:iron_sword",
-          "weight": 3
+          "type": "minecraft:loot_table",
+          "weight": 3,
+          "value": "tfcspells:shared/equipment_overworld"
         },
         {
-          "type": "minecraft:item",
-          "name": "minecraft:iron_helmet",
-          "weight": 2
+          "type": "minecraft:loot_table",
+          "weight": 2,
+          "value": "tfcspells:shared/equipment_overworld"
         },
         {
-          "type": "minecraft:item",
-          "name": "minecraft:iron_chestplate",
-          "weight": 2
+          "type": "minecraft:loot_table",
+          "weight": 2,
+          "value": "tfcspells:shared/equipment_overworld"
         },
         {
-          "type": "minecraft:item",
-          "name": "minecraft:iron_leggings",
-          "weight": 2
+          "type": "minecraft:loot_table",
+          "weight": 2,
+          "value": "tfcspells:shared/equipment_overworld"
         },
         {
-          "type": "minecraft:item",
-          "name": "minecraft:iron_boots",
-          "weight": 2
+          "type": "minecraft:loot_table",
+          "weight": 2,
+          "value": "tfcspells:shared/equipment_overworld"
         },
         {
-          "type": "minecraft:item",
-          "name": "minecraft:diamond_helmet"
+          "type": "minecraft:loot_table",
+          "value": "tfcspells:shared/equipment_overworld"
         },
         {
-          "type": "minecraft:item",
-          "name": "minecraft:diamond_chestplate"
+          "type": "minecraft:loot_table",
+          "value": "tfcspells:shared/equipment_overworld"
         },
         {
-          "type": "minecraft:item",
-          "name": "minecraft:diamond_leggings"
+          "type": "minecraft:loot_table",
+          "value": "tfcspells:shared/equipment_overworld"
         },
         {
-          "type": "minecraft:item",
-          "name": "minecraft:diamond_boots"
+          "type": "minecraft:loot_table",
+          "value": "tfcspells:shared/equipment_overworld"
         }
       ],
       "functions": [

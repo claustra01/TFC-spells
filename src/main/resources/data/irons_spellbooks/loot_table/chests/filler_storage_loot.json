@@ -71,9 +71,9 @@
       "rolls": 4,
       "entries": [
         {
-          "type": "minecraft:item",
+          "type": "minecraft:loot_table",
           "weight": 1,
-          "name": "minecraft:emerald"
+          "value": "tfcspells:shared/gems"
         },
         {
           "type": "minecraft:item",
@@ -81,9 +81,9 @@
           "name": "minecraft:book"
         },
         {
-          "type": "minecraft:item",
+          "type": "minecraft:loot_table",
           "weight": 2,
-          "name": "minecraft:apple"
+          "value": "tfcspells:shared/produce"
         },
         {
           "type": "minecraft:item",

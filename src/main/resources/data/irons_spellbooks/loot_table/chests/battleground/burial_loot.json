@@ -121,8 +121,7 @@
           "weight": 3
         },
         {
-          "type": "minecraft:item",
-          "name": "minecraft:diamond",
+          "type": "minecraft:loot_table",
           "weight": 5,
           "functions": [
             {
@@ -132,11 +131,11 @@
                 "max": 2
               }
             }
-          ]
+          ],
+          "value": "tfcspells:shared/gems"
         },
         {
-          "type": "minecraft:item",
-          "name": "minecraft:copper_ingot",
+          "type": "minecraft:loot_table",
           "weight": 5,
           "functions": [
             {
@@ -146,7 +145,8 @@
                 "max": 12
               }
             }
-          ]
+          ],
+          "value": "tfcspells:shared/metals_nether"
         }
       ]
     },
@@ -154,8 +154,7 @@
       "rolls": 1,
       "entries": [
         {
-          "type": "minecraft:item",
-          "name": "minecraft:diamond_sword",
+          "type": "minecraft:loot_table",
           "functions": [
             {
               "function": "irons_spellbooks:randomize_spell",
@@ -173,11 +172,11 @@
               },
               "options": "#minecraft:on_random_loot"
             }
-          ]
+          ],
+          "value": "tfcspells:shared/equipment_nether"
         },
         {
-          "type": "minecraft:item",
-          "name": "minecraft:iron_sword",
+          "type": "minecraft:loot_table",
           "functions": [
             {
               "function": "irons_spellbooks:randomize_spell",
@@ -195,11 +194,11 @@
               },
               "options": "#minecraft:on_random_loot"
             }
-          ]
+          ],
+          "value": "tfcspells:shared/equipment_nether"
         },
         {
-          "type": "minecraft:item",
-          "name": "minecraft:netherite_sword",
+          "type": "minecraft:loot_table",
           "functions": [
             {
               "function": "irons_spellbooks:randomize_spell",
@@ -217,11 +216,11 @@
               },
               "options": "#minecraft:on_random_loot"
             }
-          ]
+          ],
+          "value": "tfcspells:shared/equipment_nether"
         },
         {
-          "type": "minecraft:item",
-          "name": "minecraft:diamond_helmet",
+          "type": "minecraft:loot_table",
           "functions": [
             {
               "function": "minecraft:enchant_with_levels",
@@ -232,11 +231,11 @@
               },
               "options": "#minecraft:on_random_loot"
             }
-          ]
+          ],
+          "value": "tfcspells:shared/equipment_nether"
         },
         {
-          "type": "minecraft:item",
-          "name": "minecraft:diamond_chestplate",
+          "type": "minecraft:loot_table",
           "functions": [
             {
               "function": "minecraft:enchant_with_levels",
@@ -247,11 +246,11 @@
               },
               "options": "#minecraft:on_random_loot"
             }
-          ]
+          ],
+          "value": "tfcspells:shared/equipment_nether"
         },
         {
-          "type": "minecraft:item",
-          "name": "minecraft:diamond_leggings",
+          "type": "minecraft:loot_table",
           "functions": [
             {
               "function": "minecraft:enchant_with_levels",
@@ -262,11 +261,11 @@
               },
               "options": "#minecraft:on_random_loot"
             }
-          ]
+          ],
+          "value": "tfcspells:shared/equipment_nether"
         },
         {
-          "type": "minecraft:item",
-          "name": "minecraft:diamond_boots",
+          "type": "minecraft:loot_table",
           "functions": [
             {
               "function": "minecraft:enchant_with_levels",
@@ -277,7 +276,8 @@
               },
               "options": "#minecraft:on_random_loot"
             }
-          ]
+          ],
+          "value": "tfcspells:shared/equipment_nether"
         },
         {
           "type": "minecraft:empty",
