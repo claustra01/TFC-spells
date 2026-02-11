@@ -384,8 +384,8 @@ public final class TfcBlockReplacementProcessor extends StructureProcessor {
                 return tfcWood("wood/trapped_chest/", woodHint);
             // Notably absent: barrels. TFC barrels are processing block entities (not vanilla barrels) and Iron's
             // structures use barrel loot tables; a naive swap would likely lose loot or change behavior.
-            case "bookshelf":
-                return tfcWood("wood/bookshelf/", woodHint);
+            // case "bookshelf":
+            //     return tfcWood("wood/bookshelf/", woodHint);
             case "lectern":
                 return tfcWood("wood/lectern/", woodHint);
             case "crafting_table":
@@ -650,8 +650,8 @@ public final class TfcBlockReplacementProcessor extends StructureProcessor {
                 return tfcWood("wood/trapped_chest/", woodHint);
             // Notably absent: barrels. TFC barrels are processing block entities (not vanilla barrels) and Iron's
             // structures use barrel loot tables; a naive swap would likely lose loot or change behavior.
-            case "bookshelf":
-                return tfcWood("wood/bookshelf/", woodHint);
+            // case "bookshelf":
+            //     return tfcWood("wood/bookshelf/", woodHint);
             case "lectern":
                 return tfcWood("wood/lectern/", woodHint);
             case "crafting_table":
@@ -1006,9 +1006,6 @@ public final class TfcBlockReplacementProcessor extends StructureProcessor {
             case "stripped_warped_hyphae" -> beneath("wood/stripped_wood/warped");
             case "warped_roots" -> beneath("crop/warped_roots");
             case "nether_wart" -> beneath("crop/nether_wart");
-            case "nether_bricks" -> beneath("hellbricks");
-            case "soul_sand" -> beneath("soul_clay");
-            case "soul_soil" -> beneath("soul_clay");
             case "nether_gold_ore" -> beneath("ore/normal_nether_gold");
             default -> null;
         };
