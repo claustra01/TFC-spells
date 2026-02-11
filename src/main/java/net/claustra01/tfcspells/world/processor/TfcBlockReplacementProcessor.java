@@ -199,12 +199,6 @@ public final class TfcBlockReplacementProcessor extends StructureProcessor {
             outNbt = null;
         }
 
-        // Vanilla lanterns are always on. TFC metal lamps have an explicit `lit` property, so we force it on when
-        // replacing lanterns to avoid producing dark structures.
-        if ("lantern".equals(path) && out.hasProperty(BlockStateProperties.LIT)) {
-            out = out.setValue(BlockStateProperties.LIT, true);
-        }
-
         return new StructureTemplate.StructureBlockInfo(processedBlockInfo.pos(), out, outNbt);
     }
 
@@ -411,8 +405,6 @@ public final class TfcBlockReplacementProcessor extends StructureProcessor {
                 return ResourceLocation.fromNamespaceAndPath(NS_TFC, "torch");
             case "wall_torch":
                 return ResourceLocation.fromNamespaceAndPath(NS_TFC, "wall_torch");
-            case "lantern":
-                return ResourceLocation.fromNamespaceAndPath(NS_TFC, "metal/lamp/wrought_iron");
             default:
                 return null;
         }
